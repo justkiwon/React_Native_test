@@ -61,9 +61,9 @@ export default function App() {
     {id:11,
       name:"MakeKit_Kitc"},            //11
     {id:12,
-      name:"MakeKit_Setiment"},        //12
+      name:"MakeKit_Setiment"},        //12'name'
     {id:13,
-      name:"MakeKit_Box"},              //13
+      'name':"MakeKit_Box"},              //13
     ]);
     var a=0;
     var b= 0;
@@ -71,26 +71,30 @@ export default function App() {
 
 
 
-    const Test = () =>{
+    const Test = (name) =>{
   //  const Navi2=[...Navi];
   if(ansList.A8 == 4 ){ // 캠핑 안가는 계절 -- 겨울 && 전기 사용 X
-    if(Navi[6].id=="MakeKit_Heater_Energy"){
+    if(Navi[6][{name}] =="MakeKit_Heater_Energy"){
         delete Navi[6];
         b=2;
+        a=3;
     }if(Navii[6][1]=="MakeKit_Heater_Energy"){
       Navii.splice(6);
       b=5;
   }}
+
 return (
   <Text>{b}</Text>
 )
-    }
+}
+
 console.log("Navi: ",Navi);
 console.log("Navii: ",Navii);
-  return (
+
+return (
     <View style={styles.container}>
-      <Test/>
-      <Button title={"hello"} onPress={{ delete Navii[6]}}> </Button>
+      <Test name={'name'}/>
+      <Button title={"hello"} onPress={ Test } > </Button>
       <Text>{a}</Text>
       <Text>{Navi[0][1]}</Text>
       <StatusBar style="auto" />
