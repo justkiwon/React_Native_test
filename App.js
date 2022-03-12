@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View,ImageBackground,Button } from 'react-native';
 import { useState } from 'react';
+
 export default function App() {
   const [ansList, setansList] = useState(
     {
@@ -13,27 +14,28 @@ export default function App() {
       A7: 0,
       A8: 4,
       A9: 2,
-      Af: 0,
-    });
+      Af: 2,
+    }
+  );
  
-    var [Navii,setNavii]=useState([
-      [0,"MakeKit_Tent"],
-      [1,"MakeKit_Tarp"],
-      [2,"MakeKit_Tarp_NoCar"],
-      [3,"MakeKit_Mat"],
-      [4,"MakeKit_Table"],
-      [5,"MakeKit_Chair"],
-      [6,"MakeKit_Heater_Energy"],
-      [7,"MakeKit_Heater_NoEnergy"],
-      [8,"MakeKit_Cooler_Energy"],
-      [9,"MakeKit_Cooler_NoEnergy"],
-      [10,"MakeKit_Etc"],
-      [11,"MakeKit_Kitc"],
-      [12,"MakeKit_Setiment"],
-      [13,"MakeKit_Box"],
-      ]);
+const [Navi,setNavi]=useState([
+  [0,"MakeKit_Tent"],
+  [1,"MakeKit_Tarp"],
+  [2,"MakeKit_Tarp_NoCar"],
+  [3,"MakeKit_Mat"],
+  [4,"MakeKit_Table"],
+  [5,"MakeKit_Chair"],
+  [6,"MakeKit_Heater_Energy"],
+  [7,"MakeKit_Heater_NoEnergy"],
+  [8,"MakeKit_Cooler_Energy"],
+  [9,"MakeKit_Cooler_NoEnergy"],
+  [10,"MakeKit_Etc"],
+  [11,"MakeKit_Kitc"],
+  [12,"MakeKit_Setiment"],
+  [13,"MakeKit_Box"],
+  ]);
   
-
+/*
   const [Navi,setNavi]=useState([
     
     { id:0,                          //0
@@ -65,33 +67,83 @@ export default function App() {
     {id:13,
       'name':"MakeKit_Box"},              //13
     ]);
-    var a=0;
-    var b= 0;
+*/
 
 
+  const Test = () =>{
+ //   const Navi2=[...Navii];
+    
+//  console.log("Navi_first:",Navi)
+  for(var i=0 ;i<Navi.length;i++){
+    if(ansList.A8 = 0 ){ // 캠핑 안가는 계절=  여름 && 전기 사용X
+        if(Navi[i][1]== "MakeKit_Cooler_NoEnergy"){
+        Navi.splice(i,1);
+      //  console.log("Navi_Ans8:",Navi)
+      }
+      if(Navi[i][1]== "MakeKit_Heater_NoEnergy"){
+        Navi.splice(i,1);
+      //  console.log("Navi_2:",Navi)
+      }  
+    }
+    if(ansList.A8 == 4 ){ // 캠핑 안가는 계절 -- 겨울 && 전기 사용 X
+      if(Navi[i].name=="MakeKit_Heater_Energy"){
+          Navi.splice(i,1);
+      //  console.log("Navi_3:",Navi)
+      }
+      if(Navi[i][1] == "MakeKit_Cooler_NoEnergy"){
+          Navi.splice(i,1);
+      //  console.log("Navi_4:",Navi)
+      }
+    }
+    if(ansList.A9 ==2){  // 전기 사용 안한다면
+      if(Navi[i][1] == "MakeKit_Cooler_NoEnergy"){
+        Navi.splice(i,1);
+      //  console.log("Navi_Ans9:",Navi)
+      }
+      if(Navi[i][1]== "MakeKit_Heater_NoEnergy"){
+        Navi.splice(i,1);
+      //  console.log("Navi_Ans9-1:",Navi)
+      }  
+    }
+    if(ansList.A5 == 2){ //감성 여부
+      if(Navi[i][1]== "MakeKit_Sentiment"){
+        Navi.push(Navi[i]);
+        Navi.splice(i,1);
+      //  console.log("Navi_Ans5:",Navi)
+      }
+    }
+    if(ansList.A6 == 2){ //차박을 안한다면
+      if(Navi[i][1] == "MakeKit_Tarp_NoCar"){
+        Navi.splice(i,1);
+      //  console.log("Navi_Tarp:",Navi)
+      }
+    }
+    if(ansList.A8 == 4 ){ // 캠핑 안가는 계절 -- 겨울 && 전기 사용 X
+      if(Navi[i][1]=="MakeKit_Heater_Energy"){
+        Navi.splice(i,1);
+      //  console.log("Navi_Ans8-1:",Navi)
+      }
+    }
+    if(ansList.Af == 2){
+      if(Navi[i][1]=="MakeKit_Tarp"){
+        Navi.splice(i,1);
+      //  console.log("Navi_Ansf:",Navi)
+      }
+      if(Navi[i][1]=="MakeKit_Tarp_NoCar"){
+        Navi.splice(i,1);
+      //  console.log("Navi_Ansf-1:",Navi)
+      }
+    }
+  };
+ // setNavi(Navi);
+  console.log("Navi:",Navi)
+  return (
+    <Text>hello</Text>
+  )
+  }
 
 
-    const Test = (name) =>{
-  //  const Navi2=[...Navi];
-  if(ansList.A8 == 4 ){ // 캠핑 안가는 계절 -- 겨울 && 전기 사용 X
-    if(Navi[6][{name}] =="MakeKit_Heater_Energy"){
-        delete Navi[6];
-        b=2;
-        a=3;
-    }if(Navii[6][1]=="MakeKit_Heater_Energy"){
-      Navii.splice(6);
-      b=5;
-  }}
-
-return (
-  <Text>{b}</Text>
-)
-}
-
-console.log("Navi: ",Navi);
-console.log("Navii: ",Navii);
-
-return (
+  return (
     <View style={styles.container}>
       <Test name={'name'}/>
       <Button title={"hello"} onPress={ Test } > </Button>
